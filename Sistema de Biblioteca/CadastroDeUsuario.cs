@@ -1,4 +1,4 @@
-﻿using Sistema_de_Biblioteca.Classes.DataBase;
+﻿using Sistema_de_Biblioteca.Classes.Database;
 using Sistema_de_Biblioteca.Classes.Usuario;
 using Sistema_de_Biblioteca.Classes.Verificacoes;
 using System;
@@ -15,13 +15,13 @@ namespace Sistema_de_Biblioteca
 {
     public partial class CadastroDeUsuario : Form
     {
-        private Database _db;
+        private DataBase _db;
 
         public CadastroDeUsuario()
         {
             InitializeComponent();
 
-            _db = new Database();
+            _db = new DataBase();
         }
 
         private void CadastroDeUsuario_Load(object sender, EventArgs e)
@@ -46,17 +46,7 @@ namespace Sistema_de_Biblioteca
             string login = textBox2.Text;
             string senha = textBox3.Text;
 
-            bool exists = _db.LoginExistente(login);
-            if (exists == true)
-            {
-                MessageBox.Show($"O login {login} ja esta em uso");
-                return;
-            }
-
-            PasswordService ps = new PasswordService();
-
-            byte[]salt = ps.GerarSalt();
-
+           
 
             MessageBox.Show($"nome: {name}; permissao{permissao}; login{login}; senha:{senha};");
         }

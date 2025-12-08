@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Sistema_de_Biblioteca.Classes.Usuario;
 
-namespace Sistema_de_Biblioteca.Classes.DataBase
+namespace Sistema_de_Biblioteca.Classes.Database
 {
-    internal class Database
+    internal class DataBase
     {
         private readonly string _conn;
 
-        public Database()
+        public DataBase()
         {
             _conn = "Server=localhost,1433;Database=S_Biblioteca;User Id=sa;Password=Root123!@;TrustServerCertificate=True";
         }
@@ -50,27 +50,5 @@ namespace Sistema_de_Biblioteca.Classes.DataBase
             return lista;
         }
 
-        public bool LoginExistente(string login)
-        {
-            bool result;
-
-            using (SqlConnection con = GetSqlConnection())
-            {
-                string sql = $"SELECT 1 FROM BS_USUARIOS WHERE USU_LOGIN = '{login}'";
-
-                using (SqlCommand cmd = new SqlCommand(sql, con))
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    if (dr.Read != null)
-                    {
-                        result = false;
-                    } else
-                    {
-                        result = true;
-                    }
-                }
-            }
-                return result;
-        }
     }
 }

@@ -10,7 +10,7 @@ namespace Sistema_de_Biblioteca.Classes.Verificacoes
 {
     internal class PasswordService
     {
-        public static byte[] GerarSalt(int tamanho = 32)
+        public static byte[] GerarSalt(int tamanho = 16)
         {
             byte[] salt = new byte[tamanho];
             RandomNumberGenerator.Fill(salt);

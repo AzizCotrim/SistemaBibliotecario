@@ -10,25 +10,30 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
 {
     internal class Usuario
     {
+        public int Id { get; }
         public string Name { get; }
-        private byte[] _Salt { get; set; }
-        private string _Hash { get; set; }
-
+        public string Login { get; }
+        private byte[] _Salt { get; }
+        private string _Hash { get; }
         public int Permission { get; }
 
-        public Usuario(string name, byte[] salt, string hash, int permission)
+        public Usuario(string name, string login, byte[] salt, string hash, int permission)
         {
             Name = name;
+            Login = login;
             _Salt = salt;
             _Hash = hash;
             Permission = permission;
         }
 
-        
-
-        public override string ToString()
+        public Usuario(int id, string name, string login, byte[] salt, string hash, int permission)
         {
-            return $"Nome: {Name}";
+            Id = id;
+            Name = name;
+            Login = login;
+            _Salt = salt;
+            _Hash = hash;
+            Permission = permission;
         }
     }
 }

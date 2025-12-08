@@ -8,5 +8,6 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
 {
     internal class UsuarioService
     {
+        
     }
 }
