@@ -35,5 +35,15 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             _Hash = hash;
             Permission = permission;
         }
+
+        public byte[] GetSalt()
+        {
+            return (byte[])_Salt.Clone();
+        }
+
+        public string GetHash()
+        {
+            return _Hash;
+        }
     }
 }

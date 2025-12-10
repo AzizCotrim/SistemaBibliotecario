@@ -14,24 +14,6 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
     {
         private static readonly DataBase _db = new DataBase();
 
-        public static bool LoginExistente(string login)
-        {
-            using (SqlConnection con = _db.GetSqlConnection())
-            {
-                string sql = "SELECT 1 FROM BS_USUARIOS WHERE USU_LOGIN = @login";
-
-                using (SqlCommand cmd = new SqlCommand(sql, con))
-                {
-                    cmd.Parameters.AddWithValue("@login", login);
-
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        return dr.Read();
-                    }
-                }
-            }
-        }
-
         public static void CriarUsuario(string name, int cargo, string login, string passw)
         {
             byte[] salt = PasswordService.GerarSalt();
@@ -39,18 +21,29 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
 
             using (SqlConnection con = _db.GetSqlConnection())
             {
+                SqlTransaction tra = con.BeginTransaction();
 
-                string sql = @"INSERT INTO BS_USUARIOS(USU_PERM_ID, USU_NOME, USU_LOGIN, USU_SALT, USU_HASH) VALUES(@cargo, @name, @login, @salt, @hash)";
-
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                try
                 {
-                    cmd.Parameters.Add("@cargo", SqlDbType.Int).Value = cargo;
-                    cmd.Parameters.AddWithValue("@name", name);
-                    cmd.Parameters.AddWithValue("@login", login);
-                    cmd.Parameters.Add("@salt", SqlDbType.VarBinary, 32).Value = salt;
-                    cmd.Parameters.AddWithValue("@hash", hash);
-                }
+                    string sql = @"INSERT INTO BS_USUARIOS(USU_PERM_ID, USU_NOME, USU_LOGIN, USU_SALT, USU_HASH) VALUES(@cargo, @name, @login, @salt, @hash)";
 
+                    using (SqlCommand cmd = new SqlCommand(sql, con, tra))
+                    {
+                        cmd.Parameters.Add("@cargo", SqlDbType.Int).Value = cargo;
+                        cmd.Parameters.AddWithValue("@name", name);
+                        cmd.Parameters.AddWithValue("@login", login);
+                        cmd.Parameters.Add("@salt", SqlDbType.VarBinary, 32).Value = salt;
+                        cmd.Parameters.AddWithValue("@hash", hash);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    tra.Commit();
+
+                } catch (Exception ex)
+                {
+                    tra.Rollback();
+                    throw;
+                }
             }
         }
 
@@ -58,7 +51,8 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
         {
 
             using (SqlConnection con = _db.GetSqlConnection())
-            {
+            { 
+
                 string sql = @"SELECT USU_ID, USU_NOME, USU_LOGIN, USU_SALT, USU_HASH, USU_PERM_ID FROM BS_USUARIOS WHERE USU_LOGIN = @login";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))
@@ -78,17 +72,29 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
                             int vPerm = dr.GetInt32(5);
 
                             return new Usuario(vId, vNome, vLogin, vSalt, vHash, vPerm);
-                        }                   
+                        }
                     }
                 }
             }
             return null;
         }
 
-        public static bool VerificarSenha(Usuario user)
+        public static bool VerificarSenha(string login, string senha)
         {
+            
+            Usuario user = GetUsuarioPorLogin(login);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            string hashTest = PasswordService.GerarHash(senha, user.GetSalt());
+
+            return user.GetHash() == hashTest;
+
+           
 
         }
-
     }
 }
