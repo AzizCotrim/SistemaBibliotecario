@@ -29,11 +29,6 @@ namespace Sistema_de_Biblioteca
 
             var permissoes = _db.BuscarPemissoes();
 
-            foreach (var x in permissoes)
-            {
-                MessageBox.Show(x.ToString());
-            }
-
             comboPermissao.DataSource = permissoes;
             comboPermissao.DisplayMember = "Cargo";
             comboPermissao.ValueMember = "Id";

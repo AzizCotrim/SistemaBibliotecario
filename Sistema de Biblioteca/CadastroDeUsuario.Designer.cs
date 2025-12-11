@@ -55,7 +55,7 @@
             // textBox1
             // 
             textBox1.Font = new Font("Segoe UI", 12F);
-            textBox1.Location = new Point(422, 153);
+            textBox1.Location = new Point(422, 158);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(355, 29);
             textBox1.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 15F);
-            label2.Location = new Point(422, 122);
+            label2.Location = new Point(422, 127);
             label2.Name = "label2";
             label2.Size = new Size(66, 28);
             label2.TabIndex = 2;
@@ -121,7 +121,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 15F);
-            label5.Location = new Point(421, 197);
+            label5.Location = new Point(422, 204);
             label5.Name = "label5";
             label5.Size = new Size(170, 28);
             label5.TabIndex = 8;
@@ -131,7 +131,7 @@
             // 
             comboPermissao.Font = new Font("Segoe UI", 12F);
             comboPermissao.FormattingEnabled = true;
-            comboPermissao.Location = new Point(419, 235);
+            comboPermissao.Location = new Point(422, 235);
             comboPermissao.Name = "comboPermissao";
             comboPermissao.Size = new Size(355, 29);
             comboPermissao.TabIndex = 9;
