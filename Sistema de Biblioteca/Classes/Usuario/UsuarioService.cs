@@ -12,30 +12,29 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             _repository = repository;
         }
 
-        public void VerificarLogin(string login)
+        public void VerificarCriarLogin(string login)
         {
-            if (login.Length >= 3) {
+            if (_repository.ExisteLogin(login)) {
+                throw new Exception("O Login ja esta sendo utilizado");
+            }
 
-                for (int i = 0; i < login.Length; i++) {
-                    if (i == 0 && !char.IsLetter(login[i])) {
-                        throw new Exception("O Login deve comecar com uma letra");
-                    }
-
-                    if (!char.IsLetterOrDigit(login[i])) {
-                        throw new Exception("O Login nao deve possuir caractere especial");
-                    }
-                }
-
-                if (_repository.ExisteLogin(login)) {
-                    throw new Exception("O Login ja esta sendo utilizado");
-                }
-
-            } else {
+            if (!(login.Length >= 3)) {
                 throw new Exception("Login precisa ter no minimo 8 caracteres");
             }
+
+            for (int i = 0; i < login.Length; i++) {
+                if (i == 0 && !char.IsLetter(login[i])) {
+                    throw new Exception("O Login deve comecar com uma letra");
+                }
+
+                if (!char.IsLetterOrDigit(login[i])) {
+                    throw new Exception("O Login nao deve possuir caractere especial");
+                }
+            }
+
         }
-        
-        public bool VerificarSenha(string pw)
+
+        public bool VerificarCriarSenha(string pw)
         {
             //MELHORAR ESSA FUNCAO, AINDA ESTA RUIM
             if (pw.Length >= 8) {
@@ -75,32 +74,36 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             }
         }
 
-        public void CadastrarUsuario(string name, int cargo, string login , string pw)
+        public void CadastrarUsuario(string name, int cargo, string login, string pw)
         {
-            try {
+            //VerificarLogin(login);
 
-                //VerificarLogin(login);
+            /*
+             * if (VerificarCriarSenha(pw)) 
+                throw new Exception("A senha nao obedece aos requisitos minimos");
+             */
+            byte[] salt = PasswordService.GerarSalt();
+            string hash = PasswordService.GerarHash(pw, salt);
 
-                //if (VerificarSenha(pw)) {
+            _repository.CriarUsuario(name, cargo, login, salt, hash);
 
-                    byte[] salt = PasswordService.GerarSalt();
-                    string hash = PasswordService.GerarHash(pw, salt);
+        }
 
-                    _repository.CriarUsuario(name, cargo, login, salt, hash);
+        public void LoginUsuario(string login, string senha)
+        {
 
-                /*} else {
-                    throw new Exception("A senha nao obedece aos requisitos minimos");
-                }*/
+            Usuario user = _repository.GetUsuarioPorLogin(login);
 
-            } catch (Exception ex) {
-                MessageBox.Show($"Erro: {ex}");
+            if (user == null) {
+                throw new Exception("Login inexistente");
             }
+
+            string hashTest = PasswordService.GerarHash(senha, user.GetSalt());
+
+            if (user.GetHash() == hashTest) {
+                throw new Exception("Senha incorreta");
+            }
+
         }
-
-        public void LoginUsuario(string)
-        {
-
-        }
-
     }
 }

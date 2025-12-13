@@ -32,8 +32,8 @@
             TitleLable = new Label();
             label1 = new Label();
             label2 = new Label();
-            LoginText = new TextBox();
-            PassText = new TextBox();
+            txtLogin = new TextBox();
+            textPass = new TextBox();
             SuspendLayout();
             // 
             // button1
@@ -86,27 +86,27 @@
             label2.TabIndex = 3;
             label2.Text = "Senha";
             // 
-            // LoginText
+            // txtLogin
             // 
-            LoginText.BackColor = Color.White;
-            LoginText.BorderStyle = BorderStyle.FixedSingle;
-            LoginText.Font = new Font("Segoe UI", 12F);
-            LoginText.Location = new Point(425, 253);
-            LoginText.Name = "LoginText";
-            LoginText.Size = new Size(350, 29);
-            LoginText.TabIndex = 4;
+            txtLogin.BackColor = Color.White;
+            txtLogin.BorderStyle = BorderStyle.FixedSingle;
+            txtLogin.Font = new Font("Segoe UI", 12F);
+            txtLogin.Location = new Point(425, 253);
+            txtLogin.Name = "txtLogin";
+            txtLogin.Size = new Size(350, 29);
+            txtLogin.TabIndex = 4;
             // 
-            // PassText
+            // textPass
             // 
-            PassText.BackColor = Color.White;
-            PassText.BorderStyle = BorderStyle.FixedSingle;
-            PassText.Cursor = Cursors.IBeam;
-            PassText.Font = new Font("Segoe UI", 12F);
-            PassText.Location = new Point(425, 323);
-            PassText.Name = "PassText";
-            PassText.PasswordChar = '*';
-            PassText.Size = new Size(350, 29);
-            PassText.TabIndex = 5;
+            textPass.BackColor = Color.White;
+            textPass.BorderStyle = BorderStyle.FixedSingle;
+            textPass.Cursor = Cursors.IBeam;
+            textPass.Font = new Font("Segoe UI", 12F);
+            textPass.Location = new Point(425, 323);
+            textPass.Name = "textPass";
+            textPass.PasswordChar = '*';
+            textPass.Size = new Size(350, 29);
+            textPass.TabIndex = 5;
             // 
             // Login
             // 
@@ -114,8 +114,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonShadow;
             ClientSize = new Size(1184, 661);
-            Controls.Add(PassText);
-            Controls.Add(LoginText);
+            Controls.Add(textPass);
+            Controls.Add(txtLogin);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(TitleLable);
@@ -132,7 +132,7 @@
         private Label TitleLable;
         private Label label1;
         private Label label2;
-        private TextBox LoginText;
-        private TextBox PassText;
+        private TextBox txtLogin;
+        private TextBox textPass;
     }
 }

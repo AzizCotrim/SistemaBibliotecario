@@ -1,15 +1,5 @@
 ﻿using Sistema_de_Biblioteca.Classes.Database;
 using Sistema_de_Biblioteca.Classes.Usuario;
-using Sistema_de_Biblioteca.Classes.Verificacoes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Sistema_de_Biblioteca
 {
@@ -26,6 +16,14 @@ namespace Sistema_de_Biblioteca
             _db = new DataBase();
             _usuarioRepository = new UsuarioRepository();
             _usuarioService = new UsuarioService(_usuarioRepository);
+        }
+
+        private void LimparCampos()
+        {
+            txtName.Clear();
+            txtlogin.Clear();
+            txtpassword.Clear();
+            comboPermissao.SelectedIndex = 0;
         }
 
         private void CadastroDeUsuario_Load(object sender, EventArgs e)
@@ -54,11 +52,10 @@ namespace Sistema_de_Biblioteca
                     MessageBoxIcon.Information
                     );
 
-                txtName.Clear();
-                txtlogin.Clear();
-                txtpassword.Clear();
+                LimparCampos();
+
             } catch (Exception ex) {
-                MessageBox.Show($"Erro ao tentar cadastrar usuario: {ex}",
+                MessageBox.Show(ex.Message,
                     "Erro",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error

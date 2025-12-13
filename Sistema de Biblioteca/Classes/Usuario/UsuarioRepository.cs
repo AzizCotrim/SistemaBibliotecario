@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Sistema_de_Biblioteca.Classes.Database;
-using Sistema_de_Biblioteca.Classes.Verificacoes;
 using System.Data;
 
 namespace Sistema_de_Biblioteca.Classes.Usuario
@@ -14,7 +13,7 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             using (SqlConnection con = _db.GetSqlConnection()) {
                 string sql = @"SELECT COUNT(*) FROM BS_USUARIOS WHERE UPPER(USU_LOGIN) = @login";
 
-                using (SqlCommand cmd = new SqlCommand(sql,con)) {
+                using (SqlCommand cmd = new SqlCommand(sql, con)) {
                     cmd.Parameters.AddWithValue("@login", login.ToUpper());
 
                     int quant = (int)cmd.ExecuteScalar();
@@ -26,7 +25,7 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
 
         public void CriarUsuario(string name, int cargo, string login, byte[] salt, string hash)
         {
-            
+
 
             using (SqlConnection con = _db.GetSqlConnection()) {
                 SqlTransaction tra = con.BeginTransaction();
@@ -79,21 +78,5 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             return null;
         }
 
-        public bool VerificarSenha(string login, string senha)
-        {
-
-            Usuario user = GetUsuarioPorLogin(login);
-
-            if (user == null) {
-                return false;
-            }
-
-            string hashTest = PasswordService.GerarHash(senha, user.GetSalt());
-
-            return user.GetHash() == hashTest;
-
-
-
-        }
     }
 }
