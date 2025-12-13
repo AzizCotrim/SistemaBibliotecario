@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            textBox1 = new TextBox();
+            txtName = new TextBox();
             label2 = new Label();
             buttonCadastrar = new Button();
             label3 = new Label();
-            textBox2 = new TextBox();
+            txtlogin = new TextBox();
             label4 = new Label();
-            textBox3 = new TextBox();
+            txtpassword = new TextBox();
             label5 = new Label();
             comboPermissao = new ComboBox();
             SuspendLayout();
@@ -52,13 +52,13 @@
             label1.TabIndex = 0;
             label1.Text = "CADASTRAR USUARIOS";
             // 
-            // textBox1
+            // txtName
             // 
-            textBox1.Font = new Font("Segoe UI", 12F);
-            textBox1.Location = new Point(422, 158);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(355, 29);
-            textBox1.TabIndex = 1;
+            txtName.Font = new Font("Segoe UI", 12F);
+            txtName.Location = new Point(422, 158);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(355, 29);
+            txtName.TabIndex = 1;
             // 
             // label2
             // 
@@ -90,13 +90,13 @@
             label3.TabIndex = 4;
             label3.Text = "Login";
             // 
-            // textBox2
+            // txtlogin
             // 
-            textBox2.Font = new Font("Segoe UI", 12F);
-            textBox2.Location = new Point(422, 306);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(355, 29);
-            textBox2.TabIndex = 3;
+            txtlogin.Font = new Font("Segoe UI", 12F);
+            txtlogin.Location = new Point(422, 306);
+            txtlogin.Name = "txtlogin";
+            txtlogin.Size = new Size(355, 29);
+            txtlogin.TabIndex = 3;
             // 
             // label4
             // 
@@ -108,14 +108,14 @@
             label4.TabIndex = 6;
             label4.Text = "Senha";
             // 
-            // textBox3
+            // txtpassword
             // 
-            textBox3.Font = new Font("Segoe UI", 12F);
-            textBox3.Location = new Point(422, 388);
-            textBox3.Name = "textBox3";
-            textBox3.PasswordChar = '*';
-            textBox3.Size = new Size(355, 29);
-            textBox3.TabIndex = 5;
+            txtpassword.Font = new Font("Segoe UI", 12F);
+            txtpassword.Location = new Point(422, 388);
+            txtpassword.Name = "txtpassword";
+            txtpassword.PasswordChar = '*';
+            txtpassword.Size = new Size(355, 29);
+            txtpassword.TabIndex = 5;
             // 
             // label5
             // 
@@ -145,12 +145,12 @@
             Controls.Add(comboPermissao);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(textBox3);
+            Controls.Add(txtpassword);
             Controls.Add(label3);
-            Controls.Add(textBox2);
+            Controls.Add(txtlogin);
             Controls.Add(buttonCadastrar);
             Controls.Add(label2);
-            Controls.Add(textBox1);
+            Controls.Add(txtName);
             Controls.Add(label1);
             Name = "CadastroDeUsuario";
             Text = "CadastroDeUsuario";
@@ -162,13 +162,13 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox1;
+        private TextBox txtName;
         private Label label2;
         private Button buttonCadastrar;
         private Label label3;
-        private TextBox textBox2;
+        private TextBox txtlogin;
         private Label label4;
-        private TextBox textBox3;
+        private TextBox txtpassword;
         private Label label5;
         private ComboBox comboPermissao;
     }

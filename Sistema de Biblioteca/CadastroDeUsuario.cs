@@ -40,14 +40,31 @@ namespace Sistema_de_Biblioteca
 
         private void buttonCadastrar_Click(object sender, EventArgs e)
         {
-            string name = textBox1.Text;
+            string name = txtName.Text;
             int permissao = (int)comboPermissao.SelectedValue;
-            string login = textBox2.Text;
-            string senha = textBox3.Text;
+            string login = txtlogin.Text;
+            string senha = txtpassword.Text;
 
+            try {
 
+                _usuarioService.CadastrarUsuario(name, permissao, login, senha);
+                MessageBox.Show("Cadastro efetuado com sucesso!",
+                    "Sucesso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                    );
 
-            _usuarioService.CadastrarUsuario(name, permissao, login, senha);
+                txtName.Clear();
+                txtlogin.Clear();
+                txtpassword.Clear();
+            } catch (Exception ex) {
+                MessageBox.Show($"Erro ao tentar cadastrar usuario: {ex}",
+                    "Erro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+                txtpassword.Clear();
+            }
         }
     }
 }

@@ -97,5 +97,10 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             }
         }
 
+        public void LoginUsuario(string)
+        {
+
+        }
+
     }
 }
