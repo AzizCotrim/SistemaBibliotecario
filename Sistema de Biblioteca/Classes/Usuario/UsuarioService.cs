@@ -12,76 +12,51 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             _repository = repository;
         }
 
-        public void VerificarCriarLogin(string login)
+        public void VerificarExisteLogin(string login)
         {
             if (_repository.ExisteLogin(login)) {
                 throw new Exception("O Login ja esta sendo utilizado");
             }
-
-            if (!(login.Length >= 3)) {
-                throw new Exception("Login precisa ter no minimo 8 caracteres");
-            }
-
-            for (int i = 0; i < login.Length; i++) {
-                if (i == 0 && !char.IsLetter(login[i])) {
-                    throw new Exception("O Login deve comecar com uma letra");
-                }
-
-                if (!char.IsLetterOrDigit(login[i])) {
-                    throw new Exception("O Login nao deve possuir caractere especial");
-                }
-            }
-
         }
 
-        public bool VerificarCriarSenha(string pw)
+        public bool VerificarLenFormatLogin(string login)
         {
-            //MELHORAR ESSA FUNCAO, AINDA ESTA RUIM
-            if (pw.Length >= 8) {
-                int low = 0;
-                int upp = 0;
-                int num = 0;
-                int esp = 0;
+            bool tamanhoOk = login.Length >= 5;
+            bool formatoOk = login.All(c => char.IsLetterOrDigit(c));
 
-                for (int i = 0; i < pw.Length; i++) {
-                    if (i == 0 && !char.IsLetter(pw[i])) {
-                        return false;
-                    }
+            return tamanhoOk && formatoOk;
+        }
 
-                    if (char.IsLower(pw[i])) {
-                        low++;
 
-                    } else if (char.IsUpper(pw[i])) {
-                        upp++;
+        public bool VerificarRequisitosSenha(string pw)
+        {
+            bool len = pw.Length >= 4;
+            bool temMaiuscula = pw.Any(c => char.IsUpper(c));
+            bool temMinuscula = pw.Any(c => char.IsLower(c));
+            bool temNumero = pw.Any(c => char.IsDigit(c));
+            bool temEspecial = pw.Any(c => !char.IsLetterOrDigit(c));
 
-                    } else if (char.IsNumber(pw[i])) {
-                        num++;
+            bool senhaOk = len
+                        && temMaiuscula
+                        && temMinuscula
+                        && temNumero
+                        && temEspecial;
 
-                    } else {
-                        esp++;
-                    }
-
-                }
-
-                if (low == 0 || upp == 0 || num == 0 || esp == 0) {
-                    return false;
-                }
-
-                return true;
-
-            } else {
-                return false;
-            }
+            return senhaOk;
         }
 
         public void CadastrarUsuario(string name, int cargo, string login, string pw)
         {
-            //VerificarLogin(login);
+            VerificarExisteLogin(login);
 
-            /*
-             * if (VerificarCriarSenha(pw)) 
-                throw new Exception("A senha nao obedece aos requisitos minimos");
-             */
+            if (!VerificarLenFormatLogin(login)) {
+                throw new Exception("O login deve conter apenas letras e numeros");
+
+            } else if (!VerificarRequisitosSenha(pw)) {
+                throw new Exception("A senha nao cumpre os requisitos minimos");
+
+            }
+
             byte[] salt = PasswordService.GerarSalt();
             string hash = PasswordService.GerarHash(pw, salt);
 
@@ -100,7 +75,7 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
 
             string hashTest = PasswordService.GerarHash(senha, user.GetSalt());
 
-            if (user.GetHash() == hashTest) {
+            if (user.GetHash() != hashTest) {
                 throw new Exception("Senha incorreta");
             }
 
