@@ -7,12 +7,26 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
 {
     internal class UsuarioRepository
     {
-        private static readonly DataBase _db = new DataBase();
+        private readonly DataBase _db = new DataBase();
 
-        public static void CriarUsuario(string name, int cargo, string login, string passw)
+        public bool ExisteLogin(string login)
         {
-            byte[] salt = PasswordService.GerarSalt();
-            string hash = PasswordService.GerarHash(passw, salt);
+            using (SqlConnection con = _db.GetSqlConnection()) {
+                string sql = @"SELECT COUNT(*) FROM BS_USUARIOS WHERE UPPER(USU_LOGIN) = @login";
+
+                using (SqlCommand cmd = new SqlCommand(sql,con)) {
+                    cmd.Parameters.AddWithValue("@login", login.ToUpper());
+
+                    int quant = (int)cmd.ExecuteScalar();
+
+                    return quant > 0;
+                }
+            }
+        }
+
+        public void CriarUsuario(string name, int cargo, string login, byte[] salt, string hash)
+        {
+            
 
             using (SqlConnection con = _db.GetSqlConnection()) {
                 SqlTransaction tra = con.BeginTransaction();
@@ -38,12 +52,12 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             }
         }
 
-        public static Usuario GetUsuarioPorLogin(string login)
+        public Usuario GetUsuarioPorLogin(string login)
         {
 
             using (SqlConnection con = _db.GetSqlConnection()) {
 
-                string sql = @"SELECT USU_ID, USU_NOME, USU_LOGIN, USU_SALT, USU_HASH, USU_PERM_ID FROM BS_USUARIOS WHERE USU_LOGIN = @login";
+                string sql = @"SELECT USU_ID, USU_NOME, USU_SALT, USU_HASH, USU_PERM_ID FROM BS_USUARIOS WHERE USU_LOGIN = @login";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con)) {
                     cmd.Parameters.AddWithValue("@login", login);
@@ -53,12 +67,11 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
                             //preciso mesmo trazer o login de novo?
                             int vId = dr.GetInt32(0);
                             string vNome = dr.GetString(1);
-                            string vLogin = dr.GetString(2);
-                            byte[] vSalt = dr.GetFieldValue<byte[]>(3);
-                            string vHash = dr.GetString(4);
-                            int vPerm = dr.GetInt32(5);
+                            byte[] vSalt = dr.GetFieldValue<byte[]>(2);
+                            string vHash = dr.GetString(3);
+                            int vPerm = dr.GetInt32(4);
 
-                            return new Usuario(vId, vNome, vLogin, vSalt, vHash, vPerm);
+                            return new Usuario(vId, vNome, login, vSalt, vHash, vPerm);
                         }
                     }
                 }
@@ -66,7 +79,7 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             return null;
         }
 
-        public static bool VerificarSenha(string login, string senha)
+        public bool VerificarSenha(string login, string senha)
         {
 
             Usuario user = GetUsuarioPorLogin(login);

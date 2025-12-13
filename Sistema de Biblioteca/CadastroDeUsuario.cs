@@ -16,12 +16,16 @@ namespace Sistema_de_Biblioteca
     public partial class CadastroDeUsuario : Form
     {
         private DataBase _db;
+        private UsuarioService _usuarioService;
+        private UsuarioRepository _usuarioRepository;
 
         public CadastroDeUsuario()
         {
             InitializeComponent();
 
             _db = new DataBase();
+            _usuarioRepository = new UsuarioRepository();
+            _usuarioService = new UsuarioService(_usuarioRepository);
         }
 
         private void CadastroDeUsuario_Load(object sender, EventArgs e)
@@ -41,9 +45,9 @@ namespace Sistema_de_Biblioteca
             string login = textBox2.Text;
             string senha = textBox3.Text;
 
-           
 
-            MessageBox.Show($"nome: {name}; permissao{permissao}; login{login}; senha:{senha};");
+
+            _usuarioService.CadastrarUsuario(name, permissao, login, senha);
         }
     }
 }
