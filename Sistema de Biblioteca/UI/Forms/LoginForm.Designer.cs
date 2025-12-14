@@ -1,6 +1,6 @@
 ﻿namespace Sistema_de_Biblioteca
 {
-    partial class Login
+    partial class LoginForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -33,7 +33,7 @@
             label1 = new Label();
             label2 = new Label();
             txtLogin = new TextBox();
-            textPass = new TextBox();
+            txtPass = new TextBox();
             SuspendLayout();
             // 
             // button1
@@ -96,17 +96,17 @@
             txtLogin.Size = new Size(350, 29);
             txtLogin.TabIndex = 4;
             // 
-            // textPass
+            // txtPass
             // 
-            textPass.BackColor = Color.White;
-            textPass.BorderStyle = BorderStyle.FixedSingle;
-            textPass.Cursor = Cursors.IBeam;
-            textPass.Font = new Font("Segoe UI", 12F);
-            textPass.Location = new Point(425, 323);
-            textPass.Name = "textPass";
-            textPass.PasswordChar = '*';
-            textPass.Size = new Size(350, 29);
-            textPass.TabIndex = 5;
+            txtPass.BackColor = Color.White;
+            txtPass.BorderStyle = BorderStyle.FixedSingle;
+            txtPass.Cursor = Cursors.IBeam;
+            txtPass.Font = new Font("Segoe UI", 12F);
+            txtPass.Location = new Point(425, 323);
+            txtPass.Name = "txtPass";
+            txtPass.PasswordChar = '*';
+            txtPass.Size = new Size(350, 29);
+            txtPass.TabIndex = 5;
             // 
             // Login
             // 
@@ -114,7 +114,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonShadow;
             ClientSize = new Size(1184, 661);
-            Controls.Add(textPass);
+            Controls.Add(txtPass);
             Controls.Add(txtLogin);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -133,6 +133,6 @@
         private Label label1;
         private Label label2;
         private TextBox txtLogin;
-        private TextBox textPass;
+        private TextBox txtPass;
     }
 }

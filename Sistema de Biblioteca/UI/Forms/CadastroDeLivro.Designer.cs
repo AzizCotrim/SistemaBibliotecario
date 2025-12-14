@@ -83,7 +83,7 @@
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(25, 170);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(190, 23);
+            comboBox1.Size = new Size(380, 23);
             comboBox1.TabIndex = 6;
             // 
             // label4
@@ -156,7 +156,7 @@
             label1.Text = "Cadastrar Livro";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // Cadastro
+            // CadastroDeLivro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -164,7 +164,7 @@
             ClientSize = new Size(1184, 661);
             Controls.Add(label1);
             Controls.Add(panel1);
-            Name = "Cadastro";
+            Name = "CadastroDeLivro";
             Text = "Cadastro - Sistema Bibliotecario";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

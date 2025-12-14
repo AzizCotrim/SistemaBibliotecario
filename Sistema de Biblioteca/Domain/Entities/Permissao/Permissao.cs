@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistema_de_Biblioteca.Classes.Usuario
+namespace Sistema_de_Biblioteca.Domain.Entities.Permissao
 {
     internal class Permissao
     {

@@ -1,8 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
-using Sistema_de_Biblioteca.Classes.Database;
+using Sistema_de_Biblioteca.Domain.Entities.Usuario;
+using Sistema_de_Biblioteca.Infrastructure.Database;
 using System.Data;
 
-namespace Sistema_de_Biblioteca.Classes.Usuario
+namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 {
     internal class UsuarioRepository
     {
@@ -11,19 +12,21 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
         public bool ExisteLogin(string login)
         {
             using (SqlConnection con = _db.GetSqlConnection()) {
-                string sql = @"SELECT COUNT(*) FROM BS_USUARIOS WHERE UPPER(USU_LOGIN) = @login";
+                string sql = @"SELECT COUNT(*)
+                                 FROM BS_USUARIOS
+                                WHERE UPPER(USU_LOGIN) = @login";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con)) {
                     cmd.Parameters.AddWithValue("@login", login.ToUpper());
 
-                    int quant = (int)cmd.ExecuteScalar();
+                    int qtd = (int)cmd.ExecuteScalar();
 
-                    return quant > 0;
+                    return qtd > 0;
                 }
             }
         }
 
-        public void CriarUsuario(string name, int cargo, string login, byte[] salt, string hash)
+        public void CadastrarUsuario(string name, int cargo, string login, byte[] salt, string hash)
         {
 
 
@@ -31,7 +34,8 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
                 SqlTransaction tra = con.BeginTransaction();
 
                 try {
-                    string sql = @"INSERT INTO BS_USUARIOS(USU_PERM_ID, USU_NOME, USU_LOGIN, USU_SALT, USU_HASH) VALUES(@cargo, @name, @login, @salt, @hash)";
+                    string sql = @"INSERT INTO BS_USUARIOS (USU_PERM_ID, USU_NOME, USU_LOGIN, USU_SALT, USU_HASH) 
+                                   VALUES (@cargo, @name, @login, @salt, @hash)";
 
                     using (SqlCommand cmd = new SqlCommand(sql, con, tra)) {
                         cmd.Parameters.Add("@cargo", SqlDbType.Int).Value = cargo;
@@ -56,7 +60,9 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
 
             using (SqlConnection con = _db.GetSqlConnection()) {
 
-                string sql = @"SELECT USU_ID, USU_NOME, USU_SALT, USU_HASH, USU_PERM_ID FROM BS_USUARIOS WHERE USU_LOGIN = @login";
+                string sql = @"SELECT USU_ID, USU_NOME, USU_SALT, USU_HASH, USU_PERM_ID
+                                 FROM BS_USUARIOS
+                                WHERE USU_LOGIN = @login";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con)) {
                     cmd.Parameters.AddWithValue("@login", login);

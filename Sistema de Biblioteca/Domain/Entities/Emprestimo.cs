@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistema_de_Biblioteca.Classes.Livro
+namespace Sistema_de_Biblioteca.Domain.Entities
 {
-    internal class Livro
+    internal class Emprestimo
     {
-
     }
 }

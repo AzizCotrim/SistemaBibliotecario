@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
-using Sistema_de_Biblioteca.Classes.Usuario;
+using Sistema_de_Biblioteca.Domain.Entities.Permissao;
 
-namespace Sistema_de_Biblioteca.Classes.Database
+namespace Sistema_de_Biblioteca.Infrastructure.Database
 {
     internal class DataBase
     {

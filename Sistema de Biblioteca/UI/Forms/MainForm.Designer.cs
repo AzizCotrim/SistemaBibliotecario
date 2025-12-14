@@ -1,6 +1,6 @@
 ﻿namespace Sistema_de_Biblioteca
 {
-    partial class Home
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -30,14 +29,13 @@
         {
             SuspendLayout();
             // 
-            // Home
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ControlDark;
             ClientSize = new Size(1184, 661);
-            Name = "Home";
-            Text = "Home - Sistema Bibliotecario";
+            Name = "MainForm";
+            Text = "MainForm";
             ResumeLayout(false);
         }
 

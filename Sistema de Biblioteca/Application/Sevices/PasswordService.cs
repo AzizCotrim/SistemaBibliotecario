@@ -6,7 +6,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistema_de_Biblioteca.Classes.Verificacoes
+namespace Sistema_de_Biblioteca.Application.Sevices
 {
     internal class PasswordService
     {

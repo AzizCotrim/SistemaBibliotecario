@@ -1,6 +1,7 @@
-﻿using Sistema_de_Biblioteca.Classes.Verificacoes;
+﻿using Sistema_de_Biblioteca.Domain.Entities.Usuario;
+using Sistema_de_Biblioteca.Infrastructure.Repositories;
 
-namespace Sistema_de_Biblioteca.Classes.Usuario
+namespace Sistema_de_Biblioteca.Application.Sevices
 {
     internal class UsuarioService
     {
@@ -45,6 +46,7 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             return senhaOk;
         }
 
+        /*VERIFICAR A PERMISSAO DE QUEM ESTA INSERINDO UM NOVO USER*/
         public void CadastrarUsuario(string name, int cargo, string login, string pw)
         {
             VerificarExisteLogin(login);
@@ -60,7 +62,7 @@ namespace Sistema_de_Biblioteca.Classes.Usuario
             byte[] salt = PasswordService.GerarSalt();
             string hash = PasswordService.GerarHash(pw, salt);
 
-            _repository.CriarUsuario(name, cargo, login, salt, hash);
+            _repository.CadastrarUsuario(name, cargo, login, salt, hash);
 
         }
 

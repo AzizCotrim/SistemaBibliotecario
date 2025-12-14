@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Sistema_de_Biblioteca.Classes.Usuario
+namespace Sistema_de_Biblioteca.Domain.Entities.Usuario
 {
     internal class Usuario
     {

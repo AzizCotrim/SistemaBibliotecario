@@ -7,22 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Sistema_de_Biblioteca.Classes.Usuario;
 
 namespace Sistema_de_Biblioteca
 {
-    public partial class CadastroDeLivro : Form
+    public partial class Listagem : System.Windows.Forms.Form
     {
-        
-
-        public CadastroDeLivro()
+        public Listagem()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

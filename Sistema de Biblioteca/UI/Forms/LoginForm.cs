@@ -1,13 +1,14 @@
+using Sistema_de_Biblioteca.Application.Sevices;
 using Sistema_de_Biblioteca.Classes;
-using Sistema_de_Biblioteca.Classes.Usuario;
+using Sistema_de_Biblioteca.Infrastructure.Repositories;
 namespace Sistema_de_Biblioteca
 {
-    public partial class Login : Form
+    public partial class LoginForm : System.Windows.Forms.Form
     {
         private UsuarioRepository _usuarioRepository;
         private UsuarioService _usuarioService;
 
-        public Login()
+        public LoginForm()
         {
             InitializeComponent();
 
@@ -18,13 +19,15 @@ namespace Sistema_de_Biblioteca
         private void button1_Click(object sender, EventArgs e)
         {
             string login = txtLogin.Text;
-            string password = textPass.Text;
+            string password = txtPass.Text;
 
             if (login != "" && password != "") {
 
                 try {
 
                     _usuarioService.LoginUsuario(login, password);
+                    txtLogin.Clear();
+                    txtPass.Clear();
                     MessageBox.Show("O usuario entrou",
                         "Sucesso",
                         MessageBoxButtons.OK,

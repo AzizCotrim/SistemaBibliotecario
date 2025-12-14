@@ -1,9 +1,10 @@
-﻿using Sistema_de_Biblioteca.Classes.Database;
-using Sistema_de_Biblioteca.Classes.Usuario;
+﻿using Sistema_de_Biblioteca.Application.Sevices;
+using Sistema_de_Biblioteca.Infrastructure.Database;
+using Sistema_de_Biblioteca.Infrastructure.Repositories;
 
 namespace Sistema_de_Biblioteca
 {
-    public partial class CadastroDeUsuario : Form
+    public partial class CadastroDeUsuario : System.Windows.Forms.Form
     {
         private DataBase _db;
         private UsuarioService _usuarioService;

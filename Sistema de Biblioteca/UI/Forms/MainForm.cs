@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Sistema_de_Biblioteca
 {
-    public partial class Configuracoes : Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
-        public Configuracoes()
+        public MainForm()
         {
             InitializeComponent();
         }
