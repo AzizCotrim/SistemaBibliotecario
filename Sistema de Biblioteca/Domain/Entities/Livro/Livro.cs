@@ -15,6 +15,14 @@ namespace Sistema_de_Biblioteca.Domain.Entities.Livro
         public int DataLancamento;
         public int Qtd;
 
+        public Livro(int categoria, string titulo, string autor, int dataLancamento, int qtd)
+        {
+            Categoria = categoria;
+            Titulo = titulo;
+            Autor = autor;
+            DataLancamento = dataLancamento;
+            Qtd = qtd;
+        }
 
         public Livro(int id, int categoria, string titulo, string autor, int datalancamento, int qtd)
         {

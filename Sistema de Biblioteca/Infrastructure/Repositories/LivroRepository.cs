@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Sistema_de_Biblioteca.Domain.Entities.Livro;
 using Sistema_de_Biblioteca.Infrastructure.Database;
+using Sistema_de_Biblioteca.Application.DTOs;
 using System.Data;
 
 namespace Sistema_de_Biblioteca.Infrastructure.Repositories
@@ -9,7 +10,7 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
     {
         private readonly DataBase _db = new DataBase();
 
-        public bool ExisteLivro(string nome, string autor, int ano)
+        public bool ExisteLivro(string titulo, string autor, int dataLancamento)
         {
             using (SqlConnection con = _db.GetSqlConnection()) {
                 string sql = @"SELECT COUNT(*)
@@ -19,9 +20,9 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
                                   AND LIV_DATA_LANCAMENTO = @ano";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con)) {
-                    cmd.Parameters.AddWithValue("@nome", nome);
+                    cmd.Parameters.AddWithValue("@nome", titulo);
                     cmd.Parameters.AddWithValue("@autor", autor);
-                    cmd.Parameters.Add("@ano", SqlDbType.Int).Value = ano;
+                    cmd.Parameters.Add("@ano", SqlDbType.Int).Value = dataLancamento;
 
                     int qtd = (int)cmd.ExecuteScalar();
 
@@ -30,21 +31,21 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
             }
         }
 
-        public void CadastrarLivro(int categoria, string nome, string autor, int ano, int qtd)
+        public void CadastrarLivro(Livro livro)
         {
             using (SqlConnection con = _db.GetSqlConnection()) {
                 using SqlTransaction tra = con.BeginTransaction();
 
                 try {
                     string sql = @"INSERT INTO BI_LIVROS (LIV_CAT_ID, LIV_NOME, LIV_AUTOR, LIC_DATA_LANCAMENTO, LIV_QUANTIDADE)
-                               VALUES (@categoria, @nome, @autor, @ano, @qtd)";
+                               VALUES (@categoria, @titulo, @autor, @ano, @qtd)";
 
                     using (SqlCommand cmd = new SqlCommand(sql, con)) {
-                        cmd.Parameters.Add("@categoria", SqlDbType.Int).Value = categoria;
-                        cmd.Parameters.AddWithValue("@nome", nome);
-                        cmd.Parameters.AddWithValue("@autor", autor);
-                        cmd.Parameters.Add("@ano", SqlDbType.Int).Value = ano;
-                        cmd.Parameters.Add("@qtd", SqlDbType.Int).Value = qtd;
+                        cmd.Parameters.Add("@categoria", SqlDbType.Int).Value = livro.Categoria;
+                        cmd.Parameters.AddWithValue("@titulo", livro.Titulo);
+                        cmd.Parameters.AddWithValue("@autor", livro.Autor);
+                        cmd.Parameters.Add("@ano", SqlDbType.Int).Value = livro.DataLancamento;
+                        cmd.Parameters.Add("@qtd", SqlDbType.Int).Value = livro.Qtd;
                         cmd.ExecuteNonQuery();
                     }
 
@@ -57,18 +58,46 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
             }
         }
 
-        public List<Livro> BuscarLivros()
+        public List<Livro> BuscarLivros(int orderBy)
         {
-            List<Livro> lista = new List<Livro>();
+            List<Livro> list = new List<Livro>();
 
-            using(SqlConnection con = _db.GetSqlConnection()) {
-                string sql = @"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
-                                      LIC_DATA_LANCAMENTO, LIV_QUANTIDADE
+            string orderBySql;
+
+            switch (orderBy) {
+                case (1):
+                    orderBySql = "LIV_CAT_ID";
+                    break;
+
+                case (2):
+                    orderBySql = "LIV_NOME";
+                    break;
+
+                case (3):
+                    orderBySql = "LIV_AUTOR";
+                    break;
+
+                case (4):
+                    orderBySql = "LIV_DATA_LANCAMENTO";
+                    break;
+
+                case (5):
+                    orderBySql = "LIV_QUANTIDADE";
+                    break;
+
+                default:
+                    orderBySql = "LIV_ID";
+                    break;
+            }
+
+            using (SqlConnection con = _db.GetSqlConnection()) {
+                string sql = $@"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
+                                      LIV_DATA_LANCAMENTO, LIV_QUANTIDADE
                                  FROM BI_LIVROS
-                                ORDER BY 1";
+                                ORDER BY {orderBySql}";
 
-                using(SqlCommand cmd = new SqlCommand(sql, con)) {
-                    using(SqlDataReader dr = cmd.ExecuteReader()) {
+                using (SqlCommand cmd = new SqlCommand(sql, con)) {
+                    using (SqlDataReader dr = cmd.ExecuteReader()) {
 
                         while (dr.Read()) {
                             int id = dr.GetInt32(0);
@@ -78,13 +107,52 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
                             int anoLancamento = dr.GetInt32(4);
                             int qtd = dr.GetInt32(5);
 
-                            lista.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento ,qtd));
+                            list.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento, qtd));
                         }
 
                     }
                 }
             }
-            return lista;
+            return list;
+        }
+
+        public List<Livro> BuscarLivrosFiltro(PedidoBuscaLivro pedido)
+        {
+            List<Livro> list = new List<Livro>();
+
+            using (SqlConnection con = _db.GetSqlConnection()) {
+                string sql = @"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
+                                      LIV_DATA_LANCAMENTO, LIV_QUANTIDADE
+                                 FROM BI_LIVROS
+                                WHERE 1 = 1
+                                  AND (LIV_ID = @id OR @id IS NULL)
+                                  AND (LIV_CAT_ID = @categoria OR @categoria IS NULL)
+                                  AND (LIV_NOME LIKE @titulo OR @titulo IS NULL)
+                                  AND (LIV_AUTOR LIKE @autor OR @autor IS NULL)
+                                  AND (LIV_DATA_LANCAMENTO = @dataLancamento OR @dataLancamento IS NULL)";
+
+                using (SqlCommand cmd = new SqlCommand(sql, con)) {
+                    /*cmd.Parameters.Add("@id", SqlDbType.Int).Value = ;
+                    cmd.Parameters.Add("@categoria", SqlDbType.Int).Value = ;
+                    cmd.Parameters.AddWithValue("@titulo", "%" +  + "%");
+                    cmd.Parameters.AddWithValue("@autor", "%" +  + "%");
+                    cmd.Parameters.Add("@dataLancamento", SqlDbType.Int).Value = livro.DataLancamento;*/
+
+                    using (SqlDataReader dr = cmd.ExecuteReader()) {
+                        while (dr.Read()) {
+                            int id = dr.GetInt32(0);
+                            int categoriaId = dr.GetInt32(1);
+                            string titulo = dr.GetString(2);
+                            string autor = dr.GetString(3);
+                            int anoLancamento = dr.GetInt32(4);
+                            int qtd = dr.GetInt32(5);
+
+                            list.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento, qtd));
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
     }

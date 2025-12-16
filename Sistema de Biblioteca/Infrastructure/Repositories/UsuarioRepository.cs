@@ -69,7 +69,7 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 
                     using (SqlDataReader dr = cmd.ExecuteReader()) {
                         if (dr.Read()) {
-                            //preciso mesmo trazer o login de novo?
+                            
                             int vId = dr.GetInt32(0);
                             string vNome = dr.GetString(1);
                             byte[] vSalt = dr.GetFieldValue<byte[]>(2);
