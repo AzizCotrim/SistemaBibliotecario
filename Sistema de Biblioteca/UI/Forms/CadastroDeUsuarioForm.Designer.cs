@@ -1,6 +1,6 @@
 ﻿namespace Sistema_de_Biblioteca
 {
-    partial class CadastroDeUsuario
+    partial class CadastroDeUsuarioForm
     {
         /// <summary>
         /// Required designer variable.

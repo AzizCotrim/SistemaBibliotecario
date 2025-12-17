@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sistema_de_Biblioteca
+namespace Sistema_de_Biblioteca.UI.Forms
 {
-    public partial class Listagem : System.Windows.Forms.Form
+    public partial class CategoriasForm : Form
     {
-        public Listagem()
+        public CategoriasForm()
         {
             InitializeComponent();
         }

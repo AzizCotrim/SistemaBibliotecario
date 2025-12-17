@@ -1,4 +1,5 @@
-﻿using Sistema_de_Biblioteca.Domain.Entities.Livro;
+﻿using Sistema_de_Biblioteca.Application.DTOs;
+using Sistema_de_Biblioteca.Domain.Entities.Livro;
 using Sistema_de_Biblioteca.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,24 @@ namespace Sistema_de_Biblioteca.Application.Sevices
 
             _repository.CadastrarLivro(livro);
 
+        }
+        /**/
+        public List<Livro> BuscarTodosLivros(int orderBy)
+        {
+            List<Livro> list = _repository.BuscarLivros(orderBy);
+
+            return list;
+        }
+
+        public List<Livro> FiltrarBuscaLivros(PedidoBuscaLivro pedidoBusca)
+        {
+            string filtro = "";
+
+            List<Livro> list = _repository.FiltrarLivros(filtro);
+
+
+
+            return list;
         }
 
     }

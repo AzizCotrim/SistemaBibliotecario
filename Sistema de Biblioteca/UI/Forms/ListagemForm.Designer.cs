@@ -1,6 +1,6 @@
 ﻿namespace Sistema_de_Biblioteca
 {
-    partial class Listagem
+    partial class ListagemForm
     {
         /// <summary>
         /// Required designer variable.

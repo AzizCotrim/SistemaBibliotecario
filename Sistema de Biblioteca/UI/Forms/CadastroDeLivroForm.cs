@@ -1,10 +1,10 @@
 ﻿namespace Sistema_de_Biblioteca
 {
-    public partial class CadastroDeLivro : System.Windows.Forms.Form
+    public partial class CadastroDeLivroForm : System.Windows.Forms.Form
     {
 
 
-        public CadastroDeLivro()
+        public CadastroDeLivroForm()
         {
             InitializeComponent();
         }

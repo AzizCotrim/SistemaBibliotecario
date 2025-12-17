@@ -116,20 +116,16 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
             return list;
         }
 
-        public List<Livro> BuscarLivrosFiltro(PedidoBuscaLivro pedido)
+        public List<Livro> FiltrarLivros(string filtro)
         {
             List<Livro> list = new List<Livro>();
 
             using (SqlConnection con = _db.GetSqlConnection()) {
-                string sql = @"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
+                string sql = $@"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
                                       LIV_DATA_LANCAMENTO, LIV_QUANTIDADE
                                  FROM BI_LIVROS
                                 WHERE 1 = 1
-                                  AND (LIV_ID = @id OR @id IS NULL)
-                                  AND (LIV_CAT_ID = @categoria OR @categoria IS NULL)
-                                  AND (LIV_NOME LIKE @titulo OR @titulo IS NULL)
-                                  AND (LIV_AUTOR LIKE @autor OR @autor IS NULL)
-                                  AND (LIV_DATA_LANCAMENTO = @dataLancamento OR @dataLancamento IS NULL)";
+                                  {filtro}";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con)) {
                     /*cmd.Parameters.Add("@id", SqlDbType.Int).Value = ;

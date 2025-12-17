@@ -4,13 +4,13 @@ using Sistema_de_Biblioteca.Infrastructure.Repositories;
 
 namespace Sistema_de_Biblioteca
 {
-    public partial class CadastroDeUsuario : System.Windows.Forms.Form
+    public partial class CadastroDeUsuarioForm : System.Windows.Forms.Form
     {
         private DataBase _db;
         private UsuarioService _usuarioService;
         private UsuarioRepository _usuarioRepository;
 
-        public CadastroDeUsuario()
+        public CadastroDeUsuarioForm()
         {
             InitializeComponent();
 
