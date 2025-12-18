@@ -9,12 +9,14 @@ namespace Sistema_de_Biblioteca.Domain.Entities.Categoria
     internal class Categoria
     {
         public int Id;
-        public string CategoriaName;
+        public string Nome;
+        public string Descricao;
 
-        public Categoria(int id, string categoriaName)
+        public Categoria(int id, string nome, string descricao)
         {
             Id = id;
-            CategoriaName = categoriaName;
+            Nome = nome;
+            Descricao = descricao;
         }
     }
 }

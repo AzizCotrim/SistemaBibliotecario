@@ -137,9 +137,10 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
-            ClientSize = new Size(1184, 661);
+            ClientSize = new Size(952, 661);
             Controls.Add(TitleLable);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Listagem";
             Text = "Listagem - Sistema Bibliotecario";
             panel1.ResumeLayout(false);

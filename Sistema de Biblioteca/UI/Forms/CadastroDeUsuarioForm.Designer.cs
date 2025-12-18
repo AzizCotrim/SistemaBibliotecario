@@ -45,7 +45,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 24F);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(422, 40);
+            label1.Location = new Point(305, 75);
             label1.Name = "label1";
             label1.RightToLeft = RightToLeft.No;
             label1.Size = new Size(355, 45);
@@ -55,7 +55,7 @@
             // txtName
             // 
             txtName.Font = new Font("Segoe UI", 12F);
-            txtName.Location = new Point(422, 158);
+            txtName.Location = new Point(305, 193);
             txtName.Name = "txtName";
             txtName.Size = new Size(355, 29);
             txtName.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 15F);
-            label2.Location = new Point(422, 127);
+            label2.Location = new Point(305, 162);
             label2.Name = "label2";
             label2.Size = new Size(66, 28);
             label2.TabIndex = 2;
@@ -72,7 +72,7 @@
             // 
             // buttonCadastrar
             // 
-            buttonCadastrar.Location = new Point(527, 495);
+            buttonCadastrar.Location = new Point(410, 530);
             buttonCadastrar.Name = "buttonCadastrar";
             buttonCadastrar.Size = new Size(146, 45);
             buttonCadastrar.TabIndex = 0;
@@ -84,7 +84,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 15F);
-            label3.Location = new Point(422, 275);
+            label3.Location = new Point(305, 310);
             label3.Name = "label3";
             label3.Size = new Size(61, 28);
             label3.TabIndex = 4;
@@ -93,7 +93,7 @@
             // txtlogin
             // 
             txtlogin.Font = new Font("Segoe UI", 12F);
-            txtlogin.Location = new Point(422, 306);
+            txtlogin.Location = new Point(305, 341);
             txtlogin.Name = "txtlogin";
             txtlogin.Size = new Size(355, 29);
             txtlogin.TabIndex = 3;
@@ -102,7 +102,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 15F);
-            label4.Location = new Point(422, 357);
+            label4.Location = new Point(305, 392);
             label4.Name = "label4";
             label4.Size = new Size(65, 28);
             label4.TabIndex = 6;
@@ -111,7 +111,7 @@
             // txtpassword
             // 
             txtpassword.Font = new Font("Segoe UI", 12F);
-            txtpassword.Location = new Point(422, 388);
+            txtpassword.Location = new Point(305, 423);
             txtpassword.Name = "txtpassword";
             txtpassword.PasswordChar = '*';
             txtpassword.Size = new Size(355, 29);
@@ -121,7 +121,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 15F);
-            label5.Location = new Point(422, 204);
+            label5.Location = new Point(305, 239);
             label5.Name = "label5";
             label5.Size = new Size(170, 28);
             label5.TabIndex = 8;
@@ -131,17 +131,17 @@
             // 
             comboPermissao.Font = new Font("Segoe UI", 12F);
             comboPermissao.FormattingEnabled = true;
-            comboPermissao.Location = new Point(422, 235);
+            comboPermissao.Location = new Point(305, 270);
             comboPermissao.Name = "comboPermissao";
             comboPermissao.Size = new Size(355, 29);
             comboPermissao.TabIndex = 9;
             // 
-            // CadastroDeUsuario
+            // CadastroDeUsuarioForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
-            ClientSize = new Size(1184, 661);
+            ClientSize = new Size(952, 661);
             Controls.Add(comboPermissao);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -152,7 +152,8 @@
             Controls.Add(label2);
             Controls.Add(txtName);
             Controls.Add(label1);
-            Name = "CadastroDeUsuario";
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "CadastroDeUsuarioForm";
             Text = "CadastroDeUsuario";
             Load += CadastroDeUsuario_Load;
             ResumeLayout(false);

@@ -54,7 +54,7 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(button1);
-            panel1.Location = new Point(375, 111);
+            panel1.Location = new Point(256, 102);
             panel1.Name = "panel1";
             panel1.Size = new Size(430, 495);
             panel1.TabIndex = 0;
@@ -149,22 +149,23 @@
             // 
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(375, 50);
+            label1.Location = new Point(256, 41);
             label1.Name = "label1";
             label1.Size = new Size(430, 32);
             label1.TabIndex = 1;
             label1.Text = "Cadastrar Livro";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // CadastroDeLivro
+            // CadastroDeLivroForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
-            ClientSize = new Size(1184, 661);
+            ClientSize = new Size(952, 661);
             Controls.Add(label1);
             Controls.Add(panel1);
-            Name = "CadastroDeLivro";
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "CadastroDeLivroForm";
             Text = "Cadastro - Sistema Bibliotecario";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

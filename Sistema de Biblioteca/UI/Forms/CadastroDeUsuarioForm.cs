@@ -7,14 +7,18 @@ namespace Sistema_de_Biblioteca
     public partial class CadastroDeUsuarioForm : System.Windows.Forms.Form
     {
         private DataBase _db;
-        private UsuarioService _usuarioService;
+        private PermissaoRepository _permissaoRepository;
+        private PermissaoService _permissaoService;
         private UsuarioRepository _usuarioRepository;
+        private UsuarioService _usuarioService;
 
         public CadastroDeUsuarioForm()
         {
             InitializeComponent();
 
             _db = new DataBase();
+            _permissaoRepository = new PermissaoRepository();
+            _permissaoService = new PermissaoService(_permissaoRepository);
             _usuarioRepository = new UsuarioRepository();
             _usuarioService = new UsuarioService(_usuarioRepository);
         }
@@ -30,7 +34,7 @@ namespace Sistema_de_Biblioteca
         private void CadastroDeUsuario_Load(object sender, EventArgs e)
         {
 
-            var permissoes = _db.BuscarPemissoes();
+            var permissoes = _permissaoService.BuscarPerm();
 
             comboPermissao.DataSource = permissoes;
             comboPermissao.DisplayMember = "Cargo";
