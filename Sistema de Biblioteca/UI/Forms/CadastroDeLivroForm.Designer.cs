@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            textBox3 = new TextBox();
+            textBoxDescr = new TextBox();
             label5 = new Label();
-            comboBox1 = new ComboBox();
+            comboBoxCategoria = new ComboBox();
             label4 = new Label();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            textBoxAutor = new TextBox();
+            textBoxTitle = new TextBox();
             label3 = new Label();
             label2 = new Label();
             button1 = new Button();
@@ -45,12 +45,12 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(textBox3);
+            panel1.Controls.Add(textBoxDescr);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(comboBoxCategoria);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(textBoxAutor);
+            panel1.Controls.Add(textBoxTitle);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(button1);
@@ -59,13 +59,13 @@
             panel1.Size = new Size(430, 495);
             panel1.TabIndex = 0;
             // 
-            // textBox3
+            // textBoxDescr
             // 
-            textBox3.Location = new Point(25, 235);
-            textBox3.Multiline = true;
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(380, 183);
-            textBox3.TabIndex = 8;
+            textBoxDescr.Location = new Point(25, 235);
+            textBoxDescr.Multiline = true;
+            textBoxDescr.Name = "textBoxDescr";
+            textBoxDescr.Size = new Size(380, 183);
+            textBoxDescr.TabIndex = 8;
             // 
             // label5
             // 
@@ -78,13 +78,13 @@
             label5.TabIndex = 7;
             label5.Text = "Descricao";
             // 
-            // comboBox1
+            // comboBoxCategoria
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(25, 170);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(380, 23);
-            comboBox1.TabIndex = 6;
+            comboBoxCategoria.FormattingEnabled = true;
+            comboBoxCategoria.Location = new Point(25, 170);
+            comboBoxCategoria.Name = "comboBoxCategoria";
+            comboBoxCategoria.Size = new Size(380, 23);
+            comboBoxCategoria.TabIndex = 6;
             // 
             // label4
             // 
@@ -97,19 +97,19 @@
             label4.TabIndex = 5;
             label4.Text = "Categoria";
             // 
-            // textBox2
+            // textBoxAutor
             // 
-            textBox2.Location = new Point(25, 103);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(380, 23);
-            textBox2.TabIndex = 4;
+            textBoxAutor.Location = new Point(25, 103);
+            textBoxAutor.Name = "textBoxAutor";
+            textBoxAutor.Size = new Size(380, 23);
+            textBoxAutor.TabIndex = 4;
             // 
-            // textBox1
+            // textBoxTitle
             // 
-            textBox1.Location = new Point(25, 42);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(380, 23);
-            textBox1.TabIndex = 3;
+            textBoxTitle.Location = new Point(25, 42);
+            textBoxTitle.Name = "textBoxTitle";
+            textBoxTitle.Size = new Size(380, 23);
+            textBoxTitle.TabIndex = 3;
             // 
             // label3
             // 
@@ -167,6 +167,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "CadastroDeLivroForm";
             Text = "Cadastro - Sistema Bibliotecario";
+            Load += CadastroDeLivro_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -179,11 +180,11 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox textBoxTitle;
+        private TextBox textBoxAutor;
         private Label label4;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxCategoria;
         private Label label5;
-        private TextBox textBox3;
+        private TextBox textBoxDescr;
     }
 }

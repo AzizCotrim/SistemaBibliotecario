@@ -8,22 +8,22 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
     {
         private readonly DataBase _db = new DataBase();
 
-        public List<Categoria> BuscarCategorias()
+        public List<Categoria> BuscarCategoriasSimples()
         {
             List<Categoria> list = new List<Categoria>();
 
             using (SqlConnection con = _db.GetSqlConnection()) {
 
-                string sql = @"";
+                string sql = @"SELECT CAT_ID, CAT_NOME
+                                 FROM BI_CATEGORIAS";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 using (SqlDataReader dr = cmd.ExecuteReader()) {
                     while (dr.Read()) {
                         int id = dr.GetInt32(0);
                         string nome = dr.GetString(1);
-                        string descricao = dr.GetString(2);
 
-                        list.Add(new Categoria(id, nome, descricao));
+                        list.Add(new Categoria(id, nome));
                     }
                 }
             }

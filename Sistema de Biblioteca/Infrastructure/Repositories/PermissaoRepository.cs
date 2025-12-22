@@ -1,11 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Sistema_de_Biblioteca.Domain.Entities.Permissao;
 using Sistema_de_Biblioteca.Infrastructure.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 {

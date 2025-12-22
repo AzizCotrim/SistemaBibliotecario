@@ -8,9 +8,15 @@ namespace Sistema_de_Biblioteca.Domain.Entities.Categoria
 {
     internal class Categoria
     {
-        public int Id;
-        public string Nome;
-        public string Descricao;
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+
+        public Categoria(int id, string nome)
+        {
+            Id = id;
+            Nome = nome;
+        }
 
         public Categoria(int id, string nome, string descricao)
         {
