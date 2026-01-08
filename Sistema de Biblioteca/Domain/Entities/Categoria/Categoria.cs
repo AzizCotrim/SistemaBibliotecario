@@ -24,5 +24,11 @@ namespace Sistema_de_Biblioteca.Domain.Entities.Categoria
             Nome = nome;
             Descricao = descricao;
         }
+
+        public Categoria(string nome, string descricao)
+        {
+            Nome = nome;
+            Descricao = descricao;
+        }
     }
 }

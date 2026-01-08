@@ -26,6 +26,29 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
             }
         }
 
+        public void CadastrarCategoria(Categoria categoria)
+        {
+            using (SqlConnection con = _db.GetSqlConnection()) {
+                using SqlTransaction tra = con.BeginTransaction();
+
+                try {
+                    string sql = @"";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, con)) {
+                        cmd.Parameters.AddWithValue("@nome", categoria.Nome);
+                        cmd.Parameters.AddWithValue("@descricao", categoria.Descricao);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    tra.Commit();
+
+                } catch (Exception ex) {
+                    tra.Rollback();
+                    throw;
+                }
+            }
+        }
+
         public List<Categoria> BuscarCategoriasSimples()
         {
             List<Categoria> list = new List<Categoria>();
@@ -49,19 +72,30 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
             return list;
         }
         //Table-Valued Parameter (TVP)
-        public List<Categoria> BuscarCategoriaFiltro(List<int> IdCategoria)
+        public List<Categoria> BuscarCategoriaFiltro(List<int> idCategoria)
         {
             List<Categoria> list = new List<Categoria>();
 
             using (SqlConnection con = _db.GetSqlConnection()) {
                 string sql = @"SELECT CAT_ID, CAT_NOME
                                  FROM BI_CATEGORIAS
-                                WHERE CAT_ID IN (@IdCategoria)";
+                                WHERE CAT_ID IN (SELECT Id FROM @Categorias)";
 
                 using (SqlCommand cmd = new SqlCommand(sql,con)) {
-                    cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = IdCategoria;
+                    DataTable tabela = new DataTable();
+                    tabela.Columns.Add("Id", typeof(int));
+
+                    foreach (var id in idCategoria) {
+                        tabela.Rows.Add(id);
+                    }
+
+                    SqlParameter param = cmd.Parameters.AddWithValue("@categorias", tabela);
+                    param.SqlDbType = SqlDbType.Structured;
+                    param.TypeName = "dbo.TIPO_LISTA_CATEGORIA";
+
                     using (SqlDataReader dr = cmd.ExecuteReader()) {
                         while (dr.Read()) {
+
                             int id = dr.GetInt32(0);
                             string nome = dr.GetString(1);
 
