@@ -39,8 +39,36 @@ namespace Sistema_de_Biblioteca
             comboBoxCategoria.ValueMember = "Id";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonCadastrarCate_Click(object sender, EventArgs e)
         {
+            string titulo = textBoxTitle.Text;
+            string autor = textBoxAutor.Text;
+            int categoria = (int)comboBoxCategoria.SelectedIndex;
+            string descricao = textBoxDescr.Text;
+            /*CRIAR UMA TEXTBOX PARA CADA VALOR ABAIXO*/
+            int dataLancamento = 0;
+            int qtd = 0;
+
+            try {
+
+                //_livroService.CadastroDeLivro(categoria, titulo, autor, dataLancamento, qtd);
+                MessageBox.Show("Cadastro efetuado com sucesso!",
+                    "Sucesso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                    );
+
+                LimparCampos();
+            } catch (Exception ex) {
+
+                MessageBox.Show(ex.Message,
+                    "Erro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+
+                LimparCampos();
+            }
 
         }
     }
