@@ -46,8 +46,8 @@ namespace Sistema_de_Biblioteca
             int categoria = (int)comboBoxCategoria.SelectedIndex;
             string descricao = textBoxDescr.Text;
             /*CRIAR UMA TEXTBOX PARA CADA VALOR ABAIXO*/
-            int dataLancamento = 0;
-            int qtd = 0;
+            int dataLancamento = int.Parse(textBoxAnoLanc.Text);
+            int qtd = int.Parse(textBoxQtd.Text);
 
             try {
 
@@ -70,6 +70,13 @@ namespace Sistema_de_Biblioteca
                 LimparCampos();
             }
 
+        }
+
+        private void txtNumero_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)) {
+                e.Handled = true;
+            }
         }
     }
 }
