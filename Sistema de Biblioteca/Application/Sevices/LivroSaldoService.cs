@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sistema_de_Biblioteca.Application.Sevices
 {
-    internal class EstoqueService
+    internal class LivroSaldoService
     {
     }
 }
