@@ -74,7 +74,6 @@
             textBoxQtd.Size = new Size(216, 23);
             textBoxQtd.TabIndex = 12;
             textBoxQtd.KeyPress += txtNumero_KeyPress;
-            
             // 
             // label7
             // 
@@ -90,11 +89,11 @@
             // textBoxAnoLanc
             // 
             textBoxAnoLanc.Location = new Point(280, 96);
+            textBoxAnoLanc.MaxLength = 4;
             textBoxAnoLanc.Name = "textBoxAnoLanc";
             textBoxAnoLanc.Size = new Size(216, 23);
             textBoxAnoLanc.TabIndex = 10;
             textBoxAnoLanc.KeyPress += txtNumero_KeyPress;
-            textBoxAnoLanc.MaxLength = 4;
             // 
             // label6
             // 

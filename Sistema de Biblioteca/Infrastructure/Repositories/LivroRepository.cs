@@ -10,7 +10,7 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
     {
         private readonly DataBase _db = new DataBase();
 
-        public bool ExisteLivro(string titulo, string autor, int dataLancamento)
+        public bool ExisteLivro(string titulo, string autor, int? dataLancamento)
         {
             using (SqlConnection con = _db.GetSqlConnection()) {
                 string sql = @"SELECT COUNT(*)
@@ -37,15 +37,14 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
                 using SqlTransaction tra = con.BeginTransaction();
 
                 try {
-                    string sql = @"INSERT INTO BI_LIVROS (LIV_CAT_ID, LIV_NOME, LIV_AUTOR, LIC_DATA_LANCAMENTO, LIV_QUANTIDADE)
-                               VALUES (@categoria, @titulo, @autor, @ano, @qtd)";
+                    string sql = @"INSERT INTO BI_LIVROS (LIV_CAT_ID, LIV_NOME, LIV_AUTOR, LIC_DATA_LANCAMENTO)
+                               VALUES (@categoria, @titulo, @autor, @ano)";
 
                     using (SqlCommand cmd = new SqlCommand(sql, con)) {
                         cmd.Parameters.Add("@categoria", SqlDbType.Int).Value = livro.Categoria;
                         cmd.Parameters.AddWithValue("@titulo", livro.Titulo);
                         cmd.Parameters.AddWithValue("@autor", livro.Autor);
                         cmd.Parameters.Add("@ano", SqlDbType.Int).Value = livro.DataLancamento;
-                        cmd.Parameters.Add("@qtd", SqlDbType.Int).Value = livro.Qtd;
                         cmd.ExecuteNonQuery();
                     }
 
@@ -81,10 +80,6 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
                     orderBySql = "LIV_DATA_LANCAMENTO";
                     break;
 
-                case (5):
-                    orderBySql = "LIV_QUANTIDADE";
-                    break;
-
                 default:
                     orderBySql = "LIV_ID";
                     break;
@@ -92,7 +87,7 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 
             using (SqlConnection con = _db.GetSqlConnection()) {
                 string sql = $@"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
-                                      LIV_DATA_LANCAMENTO, LIV_QUANTIDADE
+                                      LIV_DATA_LANCAMENTO
                                  FROM BI_LIVROS
                                 ORDER BY {orderBySql}";
 
@@ -105,9 +100,8 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
                             string titulo = dr.GetString(2);
                             string autor = dr.GetString(3);
                             int anoLancamento = dr.GetInt32(4);
-                            int qtd = dr.GetInt32(5);
 
-                            list.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento, qtd));
+                            list.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento));
                         }
 
                     }
@@ -122,7 +116,7 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 
             using (SqlConnection con = _db.GetSqlConnection()) {
                 string sql = $@"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
-                                      LIV_DATA_LANCAMENTO, LIV_QUANTIDADE
+                                      LIV_DATA_LANCAMENTO
                                  FROM BI_LIVROS
                                 WHERE 1 = 1
                                   {filtro}";
@@ -141,9 +135,8 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
                             string titulo = dr.GetString(2);
                             string autor = dr.GetString(3);
                             int anoLancamento = dr.GetInt32(4);
-                            int qtd = dr.GetInt32(5);
 
-                            list.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento, qtd));
+                            list.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento));
                         }
                     }
                 }

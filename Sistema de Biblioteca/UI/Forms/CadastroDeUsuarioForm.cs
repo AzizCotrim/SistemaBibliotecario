@@ -6,7 +6,6 @@ namespace Sistema_de_Biblioteca
 {
     public partial class CadastroDeUsuarioForm : System.Windows.Forms.Form
     {
-        private DataBase _db;
         private PermissaoRepository _permissaoRepository;
         private PermissaoService _permissaoService;
         private UsuarioRepository _usuarioRepository;
@@ -15,8 +14,7 @@ namespace Sistema_de_Biblioteca
         public CadastroDeUsuarioForm()
         {
             InitializeComponent();
-
-            _db = new DataBase();
+            
             _permissaoRepository = new PermissaoRepository();
             _permissaoService = new PermissaoService(_permissaoRepository);
             _usuarioRepository = new UsuarioRepository();

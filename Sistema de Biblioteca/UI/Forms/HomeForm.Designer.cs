@@ -27,12 +27,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "HomeForm";
+            label1 = new Label();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(240, 48);
+            label1.Name = "label1";
+            label1.Size = new Size(430, 32);
+            label1.TabIndex = 2;
+            label1.Text = "Home";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // HomeForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlDark;
+            ClientSize = new Size(936, 622);
+            Controls.Add(label1);
+            Name = "HomeForm";
+            Text = "HomeForm";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Label label1;
     }
 }

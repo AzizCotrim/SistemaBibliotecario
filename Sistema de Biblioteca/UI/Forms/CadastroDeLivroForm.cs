@@ -1,12 +1,10 @@
 ﻿using Sistema_de_Biblioteca.Application.Sevices;
-using Sistema_de_Biblioteca.Infrastructure.Database;
 using Sistema_de_Biblioteca.Infrastructure.Repositories;
 
 namespace Sistema_de_Biblioteca
 {
     public partial class CadastroDeLivroForm : System.Windows.Forms.Form
     {
-        private DataBase _db;
         private CategoriaRepository _categoriaRepository;
         private CategoriaService _categoriaService;
         private LivroRepository _livroRepository;
@@ -28,6 +26,8 @@ namespace Sistema_de_Biblioteca
             textBoxAutor.Clear();
             comboBoxCategoria.SelectedIndex = 0;
             textBoxDescr.Clear();
+            textBoxAnoLanc.Clear();
+            textBoxQtd.Clear();
         }
 
         private void CadastroDeLivro_Load(object sender, EventArgs e)
@@ -46,12 +46,32 @@ namespace Sistema_de_Biblioteca
             int categoria = (int)comboBoxCategoria.SelectedIndex;
             string descricao = textBoxDescr.Text;
             /*CRIAR UMA TEXTBOX PARA CADA VALOR ABAIXO*/
-            int dataLancamento = int.Parse(textBoxAnoLanc.Text);
-            int qtd = int.Parse(textBoxQtd.Text);
+            int? dataLancamento = null;
+            int qtd = 0;
+
+            if (!string.IsNullOrWhiteSpace(textBoxAnoLanc.Text)) {
+
+                if (!int.TryParse(textBoxAnoLanc.Text, out int y)) {
+                    MessageBox.Show("Ano Invalido");
+                    return;
+                }
+
+                dataLancamento = y;
+            }
+
+            if (!string.IsNullOrWhiteSpace(textBoxQtd.Text)) {
+
+                if (!int.TryParse(textBoxAnoLanc.Text, out int q)) {
+                    MessageBox.Show("Ano Invalido");
+                    return;
+                }
+
+                qtd = q;
+            }
 
             try {
 
-                //_livroService.CadastroDeLivro(categoria, titulo, autor, dataLancamento, qtd);
+                _livroService.CadastroDeLivro(categoria, titulo, autor, dataLancamento, qtd);
                 MessageBox.Show("Cadastro efetuado com sucesso!",
                     "Sucesso",
                     MessageBoxButtons.OK,

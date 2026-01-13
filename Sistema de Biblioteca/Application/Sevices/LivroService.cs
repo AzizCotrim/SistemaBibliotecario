@@ -13,7 +13,7 @@ namespace Sistema_de_Biblioteca.Application.Sevices
             _repository = repository;
         }
 
-        public void VerificarExisteLivro(string titulo, string autor, int dataLancamento)
+        public void VerificarExisteLivro(string titulo, string autor, int? dataLancamento)
         {
             if (_repository.ExisteLivro(titulo, autor, dataLancamento)) {
                 throw new Exception("O livro já foi cadastrado!");
@@ -53,7 +53,7 @@ namespace Sistema_de_Biblioteca.Application.Sevices
         }
 
         /*FAZER AS VERIFICACOES DE ESCRITA (SIMB E WHITE SPACES)*/
-        public void CadastroDeLivro(int categoria, string titulo, string autor, int dataLancamento, int qtd)
+        public void CadastroDeLivro(int categoria, string titulo, string autor, int? dataLancamento, int qtd)
         {
 
             VerificarExisteLivro(titulo, autor, dataLancamento);
@@ -64,7 +64,7 @@ namespace Sistema_de_Biblioteca.Application.Sevices
             if (!VerificarRequisitosAutor(autor))
                 throw new Exception("O nome do autor nao pode estar vazio, conter apenas espaços ou qualquer simbolo");
 
-            Livro livro = new Livro(categoria, titulo, autor, dataLancamento, qtd);
+            Livro livro = new Livro(categoria, titulo, autor, dataLancamento);
 
             //_repository.CadastrarLivro(livro);
 
