@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace Sistema_de_Biblioteca.Domain.Entities.Usuario
+﻿namespace Sistema_de_Biblioteca.Domain.Entities.Usuario
 {
     internal class Usuario
     {
@@ -19,16 +11,6 @@ namespace Sistema_de_Biblioteca.Domain.Entities.Usuario
 
         public Usuario(string name, string login, byte[] salt, string hash, int permission)
         {
-            Name = name;
-            Login = login;
-            _Salt = salt;
-            _Hash = hash;
-            Permission = permission;
-        }
-
-        public Usuario(int id, string name, string login, byte[] salt, string hash, int permission)
-        {
-            Id = id;
             Name = name;
             Login = login;
             _Salt = salt;

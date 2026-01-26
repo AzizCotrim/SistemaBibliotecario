@@ -13,6 +13,10 @@ namespace Sistema_de_Biblioteca.Domain.Entities.Estoque
         public int IdLivro { get; set; }
         public int Qtd { get; set; }
 
+        public LivroSaldo()
+        {
+        }
+
         public LivroSaldo(int idLivro, int qtd)
         {
             IdLivro = idLivro;

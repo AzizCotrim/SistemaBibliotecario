@@ -20,7 +20,6 @@ namespace Sistema_de_Biblioteca.Infrastructure.Database
         public SqlConnection GetSqlConnection()
         {
             SqlConnection conn = new SqlConnection(_conn);
-            conn.Open();
             return conn;
         }   
     }
