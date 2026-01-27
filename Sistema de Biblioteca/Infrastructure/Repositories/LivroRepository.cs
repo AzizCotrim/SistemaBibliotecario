@@ -47,7 +47,7 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 
         }
 
-        public List<Livro> BuscarLivros(int orderBy)
+        public List<Livro> BuscarLivros(SqlConnection con, int orderBy)
         {
             List<Livro> list = new List<Livro>();
 
@@ -76,32 +76,31 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
                     break;
             }
 
-            using (SqlConnection con = _db.GetSqlConnection())
-            {
-                string sql = $@"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
+
+            string sql = $@"SELECT LIV_ID, LIV_CAT_ID, LIV_NOME, LIV_AUTOR,
                                       LIV_DATA_LANCAMENTO
                                  FROM BI_LIVROS
                                 ORDER BY {orderBySql}";
 
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+            using (SqlCommand cmd = new SqlCommand(sql, con))
+            {
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+
+                    while (dr.Read())
                     {
+                        int id = dr.GetInt32(0);
+                        int categoriaId = dr.GetInt32(1);
+                        string titulo = dr.GetString(2);
+                        string autor = dr.GetString(3);
+                        int anoLancamento = dr.GetInt32(4);
 
-                        while (dr.Read())
-                        {
-                            int id = dr.GetInt32(0);
-                            int categoriaId = dr.GetInt32(1);
-                            string titulo = dr.GetString(2);
-                            string autor = dr.GetString(3);
-                            int anoLancamento = dr.GetInt32(4);
-
-                            list.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento));
-                        }
-
+                        list.Add(new Livro(id, categoriaId, titulo, autor, anoLancamento));
                     }
+
                 }
             }
+
             return list;
         }
 
