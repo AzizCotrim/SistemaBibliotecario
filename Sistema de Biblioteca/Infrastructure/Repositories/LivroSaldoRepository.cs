@@ -1,114 +1,91 @@
 ﻿using Microsoft.Data.SqlClient;
-using Sistema_de_Biblioteca.Infrastructure.Database;
 using System.Data;
 namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 {
     internal class LivroSaldoRepository
     {
-        private readonly DataBase _db = new DataBase();
-
-        public void InserirLivros(int idLivro, int qtd)
+        public int InserirLivros(SqlConnection con, SqlTransaction tra, int idLivro, int qtd)
         {
-            using (SqlConnection con = _db.GetSqlConnection()) {
-                using SqlTransaction tra = con.BeginTransaction();
+            string sql = @"INSERT INTO BI_LIVRO_SALDO (LIV_ID, LIS_QTD)
+                               VALUES (@Id, @Qtd)";
 
-                try {
-                    string sql = @"INSERT INTO BI_LIVRO_SALDO (LIV_ID, LIS_QTD)
-                               VALUES (@id, @qtd)";
-
-                    using (SqlCommand cmd = new SqlCommand(sql, con)) {
-                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = idLivro;
-                        cmd.Parameters.Add("@qtd", SqlDbType.Int).Value = qtd;
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    tra.Commit();
-
-                } catch (Exception ex) {
-                    tra.Rollback();
-                    throw;
-                }
+            using (SqlCommand cmd = new SqlCommand(sql, con, tra))
+            {
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = idLivro;
+                cmd.Parameters.Add("@Qtd", SqlDbType.Int).Value = qtd;
+                return cmd.ExecuteNonQuery();
             }
-        }
-
-        public void GetQuantidade(int idLivro)
-        {
 
         }
 
-        public int UpdateQuantidade(int idLivro, int newQtd)
+        public int? GetQuantidade(SqlConnection con, int idLivro)
         {
-            using (SqlConnection con = _db.GetSqlConnection()) {
-                using SqlTransaction tra = con.BeginTransaction();
+            string sql = @"SELECT LIS_QTD
+                             FROM BI_LIVRO_SALDO
+                            WHERE LIV_ID = @Id";
 
-                try {
+            using (SqlCommand cmd = new SqlCommand(sql, con))
 
+            {
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = idLivro;
 
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                        return dr.GetInt32(0);
 
-                    tra.Commit();
-
-                }catch(Exception ex) {
-                    tra.Rollback();
-                    throw;
+                    return null;
                 }
+
             }
         }
 
-        public int RetirarUnidade(int idLivro)
+        public int UpdateQuantidade(SqlConnection con, SqlTransaction tra, int idLivro, int Qtd)
         {
-            using(SqlConnection con = _db.GetSqlConnection()) {
-                using SqlTransaction tra = con.BeginTransaction();
+            string sql = @"UPDATE BI_LIVRO_SALDO
+                              SET LIS_QTD = @Qtd
+                            WHERE LIV_ID = @Id";
 
-                try {
+            using (SqlCommand cmd = new SqlCommand(sql, con, tra))
+            {
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = idLivro;
+                cmd.Parameters.Add("@Qtd", SqlDbType.Int).Value = Qtd;
 
-                    int result;
-
-                    string sql = @"UPDATE BI_LIVRO_SALDO
-                                      SET LIS_QTD = LIS_QTD - 1
-                                    WHERE LIV_ID = @id
-                                      AND LIS_QTD >= 1";
-
-                    using (SqlCommand cmd = new SqlCommand(sql, con)) {
-                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = idLivro;
-
-                        result = cmd.ExecuteNonQuery();
-
-
-                    }
-
-                    tra.Commit();
-                    return result;
-
-
-                }catch (Exception ex) {
-                    tra.Rollback();
-                    throw;
-                }
+                return cmd.ExecuteNonQuery();
             }
         }
 
-        public int AdicionarUnidade(int idLivro)
+        public int RetirarUnidade(SqlConnection con, SqlTransaction tra, int idLivro)
         {
-            using (SqlConnection con = _db.GetSqlConnection()) {
-                using SqlTransaction tra = con.BeginTransaction();
 
-                try {
+            string sql = @"UPDATE BI_LIVRO_SALDO
+                              SET LIS_QTD = LIS_QTD - 1
+                            WHERE LIV_ID = @Id
+                              AND LIS_QTD >= 1";
 
-                    string sql = @"UPDATE BI_LIVRO_SALDO
-                                      SET LIS_QTD = LIS_QTD + 1
-                                    WHERE LIV_ID = @id";
+            using (SqlCommand cmd = new SqlCommand(sql, con, tra))
+            {
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = idLivro;
 
-                    using(SqlCommand cmd = new SqlCommand(sql, con)) {
-                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = idLivro;
-                    }
-
-                    tra.Commit();
-
-                } catch (Exception ex) {
-                    tra.Rollback();
-                    throw;
-                }
+                return cmd.ExecuteNonQuery();
             }
+
+        }
+
+        public int AdicionarUnidade(SqlConnection con, SqlTransaction tra, int idLivro)
+        {
+
+            string sql = @"UPDATE BI_LIVRO_SALDO
+                              SET LIS_QTD = LIS_QTD + 1
+                            WHERE LIV_ID = @Id";
+
+            using (SqlCommand cmd = new SqlCommand(sql, con, tra))
+            {
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = idLivro;
+
+                return cmd.ExecuteNonQuery();
+            }
+
         }
     }
 }

@@ -8,5 +8,6 @@ namespace Sistema_de_Biblioteca.Application.DTOs.Emprestimo
 {
     internal class EmprestimoCreateRequest
     {
+        
     }
 }

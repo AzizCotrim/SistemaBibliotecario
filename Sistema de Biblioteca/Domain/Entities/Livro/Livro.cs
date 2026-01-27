@@ -8,6 +8,14 @@
         public string? Autor;
         public int? DataLancamento;
 
+        public Livro(int id, int categoria, string titulo, string? autor, int? dataLancamento)
+        {
+            Id = id;
+            Categoria = categoria;
+            Titulo = titulo;
+            Autor = autor;
+            DataLancamento = dataLancamento;
+        }
         public Livro(int categoria, string titulo, string? autor, int? dataLancamento)
         {
             Categoria = categoria;
@@ -15,5 +23,6 @@
             Autor = autor;
             DataLancamento = dataLancamento;
         }
+
     }
 }

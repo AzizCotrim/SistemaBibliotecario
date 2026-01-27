@@ -9,7 +9,7 @@ namespace Sistema_de_Biblioteca.Application.DTOs.Saldo
 {
     internal class LivroSaldoCreateRequest
     {
-        public LivroResumoResponse Livro { get; set; }
+        public int IdLivro { get; set; }
         public int Qtd { get; set; }
     }
 }

@@ -12,12 +12,21 @@ namespace Sistema_de_Biblioteca.Domain.Entities.Categoria
         public string Nome { get; set; }
         public string Descricao { get; set; }
 
-        public Categoria()
+        public Categoria(int id, string nome)
         {
+            Id = id;
+            Nome = nome;
         }
 
         public Categoria(string nome, string descricao)
         {
+            Nome = nome;
+            Descricao = descricao;
+        }
+
+        public Categoria(int id, string nome, string descricao)
+        {
+            Id = id;
             Nome = nome;
             Descricao = descricao;
         }

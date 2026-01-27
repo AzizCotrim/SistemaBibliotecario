@@ -18,6 +18,16 @@
             Permission = permission;
         }
 
+        public Usuario(int id, string name, string login, byte[] salt, string hash, int permission)
+        {
+            Id = id;
+            Name = name;
+            Login = login;
+            _Salt = salt;
+            _Hash = hash;
+            Permission = permission;
+        }
+
         public byte[] GetSalt()
         {
             return (byte[])_Salt.Clone();
