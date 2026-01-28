@@ -7,7 +7,6 @@ namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 {
     internal class LivroRepository
     {
-        private readonly DataBase _db = new DataBase();
 
         public bool ExisteLivro(SqlConnection con, string titulo, string autor, int? dataLancamento)
         {
