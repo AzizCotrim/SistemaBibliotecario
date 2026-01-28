@@ -1,20 +1,19 @@
 ﻿using Microsoft.Data.SqlClient;
 using Sistema_de_Biblioteca.Domain.Entities.Categoria;
-using Sistema_de_Biblioteca.Infrastructure.Database;
 using System.Data;
 
 namespace Sistema_de_Biblioteca.Infrastructure.Repositories
 {
     internal class CategoriaRepository
     {
-        public bool ExisteCategoria(SqlConnection con, string nome)
+        public bool ExisteCategoria(SqlConnection con, SqlTransaction tra, string nome)
         {
 
             string sql = @"SELECT COUNT(*)
                              FROM BI_CATEGORIAS
                             WHERE CAT_NOME LIKE @Nome";
 
-            using (SqlCommand cmd = new SqlCommand(sql, con))
+            using (SqlCommand cmd = new SqlCommand(sql, con, tra))
             {
                 cmd.Parameters.AddWithValue("@Nome", nome);
 
